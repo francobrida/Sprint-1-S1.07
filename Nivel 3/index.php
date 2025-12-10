@@ -23,13 +23,13 @@ try {
         $data["phone"] = trim($data["phone"]);
     }
     
-    // Email filtered with filter
+    // Email filtered with filter:
 
     if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
         throw new Exception("Email is not valid.");
     }
 
-    // Phone Number filtered with regular expression
+    // Phone Number filtered with regular expression:
 
     if (!preg_match('/^[0-9]{7,15}$/', $data["phone"])) {
         throw new Exception("Phone Number is not valid.");

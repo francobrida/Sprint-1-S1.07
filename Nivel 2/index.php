@@ -1,4 +1,5 @@
 <?php
+require_once './CustomExceptions.php';
 
 session_start();
 
@@ -9,7 +10,7 @@ try {
     } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
         $data = $_GET;
     } else {
-        throw new Exception("Invalid request method.");
+        throw new RequestException("Invalid request method.");
     }
 
     if (!isset($data["username"]) || !isset($data["number"])){
@@ -20,31 +21,31 @@ try {
     }
     
     if ($data["username"] == ""){
-        throw new Exception("Name is Empty.");
+        throw new EmptyFieldException("Name is Empty.");
     }
     
     if ($data["number"] === null || $data["number"] === "") { 
-        throw new Exception("Number is Empty.");
+        throw new EmptyFieldException("Number is Empty.");
     } 
     
     if (!is_numeric($data["number"])){
-        throw new Exception("Number is not numeric.");
+        throw new InvalidNumberException("Number is not numeric.");
     } 
     
     if (mb_strlen($data["username"]) < 3 || mb_strlen($data["username"]) > 15){ // A few magic numbers here, hope it's not a problem
-        throw new Exception("Name must be between 3 and 15 characters.");
+        throw new InvalidNameException("Name must be between 3 and 15 characters.");
     }
     
     if ($data["number"] < 1 || $data["number"] > 9999){  // also here
-        throw new Exception("Number must be between 1 and 9999.");
+        throw new InvalidNumberException("Number must be between 1 and 9999.");
     } 
     
     if (ctype_digit($data["username"])){
-        throw new Exception("Name cannot be only numbers.");
+        throw new InvalidNameException("Name cannot be only numbers.");
     } 
     
     if (!ctype_digit($data["number"])){
-        throw new Exception("Number cannot be decimal or negative.");
+        throw new InvalidNumberException("Number cannot be decimal or negative.");
     } else {
     
     
@@ -54,6 +55,14 @@ try {
     echo $_SESSION["username"] . " " . $_SESSION["number"];
     } 
 
+} catch (RequestException $exception){
+    echo "Request Error" . $exception->getMessage();
+} catch (EmptyFieldException $exception){
+    echo "Empty Field Error: " . $exception->getMessage();
+} catch (InvalidNameException $exception){  
+    echo "Invalid Name Error: " . $exception->getMessage();
+} catch (InvalidNumberException $exception){
+    echo "Invalid Number Error: " . $exception->getMessage();
 } catch (Exception $exception) {
     echo "Error: " . $exception->getMessage();
 }

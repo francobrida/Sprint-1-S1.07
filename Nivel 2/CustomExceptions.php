@@ -1,6 +1,6 @@
 <?php
 // Wasn't shure if these were supposed to go each on a different PHP file. 
-// From what I've read, they could also be placed at the start of index.php, but tried to optimize.
+// From what I've read, they could also be placed at the start of index.php, but tried to optimize and free the index of responsibilities.
 
 class RequestException extends Exception {}
 class EmptyFieldException extends Exception {}

@@ -5,7 +5,7 @@ session_start();
 try {
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $data = $_POST;
+        $data = $_POST; 
     } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
         $data = $_GET;
     } else {
@@ -13,7 +13,7 @@ try {
     }
 
     if (!isset($data["username"]) || !isset($data["number"])){
-        throw new Exception("Formulario Incompleto.");
+        throw new Exception("Form Incomplete.");
     } else {
         $data["username"] = trim($data["username"]);
         $data["number"] = trim($data["number"]);
@@ -31,11 +31,11 @@ try {
         throw new Exception("Number is not numeric.");
     } 
     
-    if (mb_strlen($data["username"]) < 3 || mb_strlen($data["username"]) > 15){
+    if (mb_strlen($data["username"]) < 3 || mb_strlen($data["username"]) > 15){ // A few magic numbers here, hope it's not a problem
         throw new Exception("Name must be between 3 and 15 characters.");
     }
     
-    if ($data["number"] < 1 || $data["number"] > 9999){
+    if ($data["number"] < 1 || $data["number"] > 9999){  // also here
         throw new Exception("Number must be between 1 and 9999.");
     } 
     
@@ -54,8 +54,8 @@ try {
     echo $_SESSION["username"] . " " . $_SESSION["number"];
     } 
 
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+} catch (Exception $exception) {
+    echo "Error: " . $exception->getMessage();
 }
 
 ?>

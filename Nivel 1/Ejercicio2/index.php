@@ -5,7 +5,7 @@ session_start();
 try {
     
     if (!isset($_POST["username"]) || !isset($_POST["number"])){
-        throw new Exception("Formulario Incompleto.");
+        throw new Exception("Form Incomplete.");
     } else if ($_POST["username"] == ""){
         throw new Exception("Name is Empty.");
     } else if ($_POST["number"] === null || $_POST["number"] === "") { 
@@ -20,8 +20,8 @@ try {
     echo $_SESSION["username"] . " " . $_SESSION["number"];
     } 
 
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+} catch (Exception $exception) {
+    echo "Error: " . $exception->getMessage();
 }
 
 ?>

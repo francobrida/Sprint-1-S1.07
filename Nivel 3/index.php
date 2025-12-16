@@ -14,7 +14,7 @@ try {
 
     if (!isset($data["username"]) || !isset($data["number"])  || !isset($data["email"]) || !isset($data["phone"])) {
 
-        throw new Exception("Formulario Incompleto.");
+        throw new Exception("Form Incomplete.");
 
     } else {
         $data["username"] = trim($data["username"]);
@@ -31,7 +31,7 @@ try {
 
     // Phone Number filtered with regular expression:
 
-    if (!preg_match('/^[0-9]{7,15}$/', $data["phone"])) {
+    if (!preg_match('/^[0-9]{7,15}$/', $data["phone"])) { // Reminder of how it works: "^[] starts with.." and "{}$ has this range of numbers". 
         throw new Exception("Phone Number is not valid.");
     }
 
@@ -74,8 +74,8 @@ try {
      $_SESSION["phone"];
     } 
 
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+} catch (Exception $exception) {
+    echo "Error: " . $exception->getMessage();
 }
 
 ?>
